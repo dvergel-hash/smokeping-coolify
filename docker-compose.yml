@@ -17,13 +17,12 @@ services:
       - NET_RAW
     restart: unless-stopped
 
-  smokeping_prober:
+smokeping_prober:
     image: quay.io/superq/smokeping-prober:latest
     container_name: smokeping_prober
     command:
       - --config.file=/config/targets.yaml
       - --web.listen-address=:9374
-      - --ping.binary-path=/bin/fping
       - --ping.interval=5s
       - --ping.timeout=1s
       - --privileged
