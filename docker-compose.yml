@@ -36,6 +36,8 @@ services:
       - "9374"
     restart: unless-stopped
 
+  
+services:
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -44,11 +46,12 @@ services:
       - --storage.tsdb.retention.time=90d
       - --storage.tsdb.retention.size=20GB
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus:/etc/prometheus:ro
       - prometheus_data:/prometheus
     expose:
       - "9090"
     restart: unless-stopped
+
 
 volumes:
   smokeping_data:
