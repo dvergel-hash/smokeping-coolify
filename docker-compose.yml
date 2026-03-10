@@ -1,34 +1,25 @@
+
 version: "3.9"
-
-networks:
-  mon_net:
-    driver: bridge
-
-volumes:
-  smokeping_data:
-  prometheus_data:
 
 services:
   smokeping:
     image: lscr.io/linuxserver/smokeping:latest
     container_name: smokeping
     environment:
-      - PUID=1000            # ajusta según tu usuario
+      - PUID=1000
       - PGID=1000
       - TZ=America/Argentina/Buenos_Aires
     volumes:
-      - ./smokeping/config:/config          # tus archivos de config
-      - smokeping_data:/data                # RRDs persistentes
-    ports:
-      - "127.0.0.1:9080:80"                 # solo loopback; lo publicás por el reverse
+      - ./smokeping:/config
+      - smokeping_data:/data
+    expose:
+      - "80"
     cap_add:
-      - NET_RAW                               # permite ICMP
+      - NET_RAW
     restart: unless-stopped
-    networks:
-      - mon_net
 
   smokeping_prober:
-    image: ghcr.io/superq/smokeping_prober:latest
+    image: quay.io/superq/smokeping-prober:latest
     container_name: smokeping_prober
     command:
       - --config.file=/config/targets.yaml
@@ -36,14 +27,14 @@ services:
       - --ping.binary-path=/bin/fping
       - --ping.interval=5s
       - --ping.timeout=1s
-      - --privileged                                 # usa fping con privilegios dentro del contenedor
+      - --privileged
     cap_add:
       - NET_RAW
     volumes:
-      - ./prober/targets.yaml:/config/targets.yaml:ro
+      - ./prober:/config
+    expose:
+      - "9374"
     restart: unless-stopped
-    networks:
-      - mon_net
 
   prometheus:
     image: prom/prometheus:latest
@@ -52,12 +43,13 @@ services:
       - --config.file=/etc/prometheus/prometheus.yml
       - --storage.tsdb.retention.time=90d
       - --storage.tsdb.retention.size=20GB
-      - --web.enable-lifecycle
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
-    ports:
-      - "127.0.0.1:9090:9090"               # opcional; si lo exponés también via reverse
+    expose:
+      - "9090"
     restart: unless-stopped
-    networks:
-      - mon_net
+
+volumes:
+  smokeping_data:
+  prometheus_data:
