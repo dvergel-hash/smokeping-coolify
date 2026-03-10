@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   smokeping:
     image: lscr.io/linuxserver/smokeping:latest
@@ -14,8 +16,8 @@ services:
     cap_add:
       - NET_RAW
     restart: unless-stopped
- 
-smokeping_prober:
+
+  smokeping_prober:
     image: quay.io/superq/smokeping-prober:latest
     container_name: smokeping_prober
     command:
@@ -25,6 +27,13 @@ smokeping_prober:
       - --ping.interval=5s
       - --ping.timeout=1s
       - --privileged
+    cap_add:
+      - NET_RAW
+    volumes:
+      - ./prober:/config
+    expose:
+      - "9374"
+    restart: unless-stopped
 
   prometheus:
     image: prom/prometheus:latest
@@ -36,7 +45,6 @@ smokeping_prober:
     volumes:
       - ./prometheus:/etc/prometheus:ro
       - prometheus_data:/prometheus
-
     expose:
       - "9090"
     restart: unless-stopped
