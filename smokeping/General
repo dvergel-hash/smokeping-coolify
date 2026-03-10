@@ -1,0 +1,13 @@
+
+owner = InfraOps
+contact = infra@example.com
+mailhost = localhost
+sendmail = /usr/sbin/sendmail
+imgcache = /data/img
+imgurl   = img
+datadir  = /data
+piddir   = /var/run/smokeping
+cgiurl   = http://smokeping.local/smokeping.cgi
+
+# Opcional: logging a syslog
+syslogfacility = local0

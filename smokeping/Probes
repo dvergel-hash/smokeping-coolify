@@ -1,0 +1,5 @@
+
++ FPing
+binary = /usr/sbin/fping
+step = 60
+pings = 20

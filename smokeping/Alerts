@@ -1,0 +1,5 @@
+
++loss_5pct
+type = loss
+pattern = >5%,>5%,>5%
+comment = Pérdida de paquetes mayor al 5% sostenida

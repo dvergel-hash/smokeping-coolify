@@ -1,0 +1,89 @@
+
+*** Targets ***
+
+remark = Algunos servicios SaaS pueden rate-limitar o bloquear ICMP. Si ves 100% packet loss, es posible que el destino no responda a ping.
+
++ Internet
+menu = Internet
+title = Latencia a Internet (anycast DNS)
+
+++ Cloudflare
+menu = 1.1.1.1
+title = Cloudflare DNS
+host = 1.1.1.1
+probe = FPing
+alerts = loss_5pct
+
+++ GoogleDNS
+menu = 8.8.8.8
+title = Google Public DNS
+host = 8.8.8.8
+probe = FPing
+alerts = loss_5pct
+
+++ GoogleDNS_2
+menu = 8.8.4.4
+title = Google Public DNS (sec)
+host = 8.8.4.4
+probe = FPing
+alerts = loss_5pct
+
++ Cloud_Providers
+menu = Cloud Providers
+title = Proveedores cloud y plataformas
+
+++ Azure
+menu = Azure
+title = Azure (azure.microsoft.com)
+host = azure.microsoft.com
+probe = FPing
+alerts = loss_5pct
+
+++ Google
+menu = Google
+title = Google (google.com)
+host = google.com
+probe = FPing
+alerts = loss_5pct
+
+++ GCP
+menu = GCP
+title = Google Cloud (console.google.cloud.com - puede no responder ICMP)
+host = console.cloud.google.com
+probe = FPing
+alerts = loss_5pct
+
+++ Supabase
+menu = Supabase
+title = Supabase (supabase.com)
+host = supabase.com
+probe = FPing
+alerts = loss_5pct
+
+++ Vercel
+menu = Vercel
+title = Vercel (vercel.com)
+host = vercel.com
+probe = FPing
+alerts = loss_5pct
+
+++ Lovable
+menu = Lovable
+title = Lovable (lovable.dev)
+host = lovable.dev
+probe = FPing
+alerts = loss_5pct
+
+++ Zoom
+menu = Zoom
+title = Zoom (zoom.us) - si no responde, probá status.zoom.us
+host = zoom.us
+probe = FPing
+alerts = loss_5pct
+
+++ Office365
+menu = Office365
+title = Microsoft 365 (outlook.office.com) - puede no responder ICMP
+host = outlook.office.com
+probe = FPing
+alerts = loss_5pct

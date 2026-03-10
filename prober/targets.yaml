@@ -1,0 +1,52 @@
+modules:
+  default:
+    prober: fping
+    timeout: 1s
+    fping:
+      privileged: true
+      packets: 20
+      interval: 60s
+targets:
+- name: cloudflare
+  module: default
+  targets:
+  - 1.1.1.1
+- name: googledns
+  module: default
+  targets:
+  - 8.8.8.8
+  - 8.8.4.4
+- name: azure
+  module: default
+  targets:
+  - azure.microsoft.com
+- name: google
+  module: default
+  targets:
+  - google.com
+- name: gcp
+  module: default
+  targets:
+  - console.cloud.google.com
+- name: supabase
+  module: default
+  targets:
+  - supabase.com
+- name: vercel
+  module: default
+  targets:
+  - vercel.com
+- name: lovable
+  module: default
+  targets:
+  - lovable.dev
+- name: zoom
+  module: default
+  targets:
+  - zoom.us
+  - status.zoom.us
+- name: office365
+  module: default
+  targets:
+  - outlook.office.com
+  - login.microsoftonline.com
