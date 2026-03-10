@@ -36,6 +36,8 @@ services:
       - "9374"
     restart: unless-stopped
 
+  
+services:
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -50,6 +52,7 @@ services:
     expose:
       - "9090"
     restart: unless-stopped
+
 
 volumes:
   smokeping_data:
